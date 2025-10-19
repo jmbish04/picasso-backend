@@ -17,7 +17,10 @@
       "@/lib/*": ["src/lib/*"],
       "@/routes/*": ["src/routes/*"],
       "@/agents/*": ["src/agents/*"],
-      "@/artifacts/*": ["src/artifacts/*"]
+      "@/artifacts/*": ["src/artifacts/*"],
+      "@/adapters/*": ["src/adapters/*"],
+      "@/types/*": ["src/types/*"],
+      "@/durable-objects/*": ["src/durable-objects/*"]
     }
   },
   "include": ["src", "services"]
