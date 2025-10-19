@@ -1,0 +1,23 @@
+<!-- TODO(Jules): Produce print-friendly stakeholder summary with sections for goals, highlights, and next steps. -->
+<main class="stakeholder-report">
+  <section class="intro">
+    <h1>{{title}}</h1>
+    <p>{{summary}}</p>
+  </section>
+  <section class="highlights">
+    {{#each highlights}}
+    <article>
+      <h2>{{heading}}</h2>
+      <p>{{body}}</p>
+    </article>
+    {{/each}}
+  </section>
+  <section class="gallery">
+    {{#each images}}
+    <figure>
+      <img src="{{url}}" alt="{{alt}}" />
+      <figcaption>{{caption}}</figcaption>
+    </figure>
+    {{/each}}
+  </section>
+</main>

@@ -1,0 +1,16 @@
+<!-- TODO(Jules): Build interactive voting deck layout with placeholder buttons for future client wiring. -->
+<section class="voting-deck">
+  {{#each slides}}
+  <article data-id="{{id}}">
+    <img src="{{url}}" alt="{{alt}}" />
+    <footer>
+      <h3>{{title}}</h3>
+      <p>{{summary}}</p>
+      <div class="actions">
+        <button data-action="approve">Approve</button>
+        <button data-action="revise">Revise</button>
+      </div>
+    </footer>
+  </article>
+  {{/each}}
+</section>

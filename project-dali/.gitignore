@@ -1,0 +1,7 @@
+node_modules/
+.dist/
+.worker/
+wrangler-state.toml
+.vscode/
+.DS_Store
+.env

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: 'Inter', sans-serif; margin: 0; padding: 2rem; background: #0f0f10; color: #f9f9fb; }
+      header { margin-bottom: 2rem; }
+      .grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      figure { margin: 0; background: rgba(255, 255, 255, 0.04); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
+      img { width: 100%; height: auto; display: block; }
+      figcaption { padding: 1rem; font-size: 0.95rem; opacity: 0.85; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{{title}}</h1>
+      <p>{{description}}</p>
+    </header>
+    <section class="grid">
+      <!-- TODO(Jules): hydrate entries with Cloudflare Images delivery URLs -->
+      {{#each images}}
+      <figure>
+        <img src="{{url}}" alt="{{alt}}" />
+        <figcaption>{{caption}}</figcaption>
+      </figure>
+      {{/each}}
+    </section>
+  </body>
+</html>
