@@ -228,20 +228,20 @@ Security & Ops
     •   Seed knowledge_base with 3–5 provider tips each.
 
 Cloudflare-Native Implementation Rules (must follow)
-    1.  Agents orchestrate; tools execute. Implement Orchestrator/Judge/Artifact with @cloudflare/agents. Each external effect (DB/R2/Images/DO/Queues) is a tool invoked via step.do('tool-name', fn). Keep business logic inside agents, and IO inside tools. This guarantees traceability and retries.  ￼
+    1.  Agents orchestrate; tools execute. Implement Orchestrator/Judge/Artifact with @cloudflare/agents. Each external effect (DB/R2/Images/DO/Queues) is a tool invoked via step.do('tool-name', fn). Keep business logic inside agents, and IO inside tools. This guarantees traceability and retries.
     2.  Treat the DO as an Actor.
     •   Add POST /_actor/:sessionId endpoint on the DO for agents to send events; DO fans out to connected WS clients.
-    •   Keep an in-memory Map<sessionId, Set<WebSocket>> and prune on close/heartbeat timeout. No direct mutation of WS sets from the Worker—always message the DO.  ￼
+    •   Keep an in-memory Map<sessionId, Set<WebSocket>> and prune on close/heartbeat timeout. No direct mutation of WS sets from the Worker—always message the DO.
     3.  Images pipeline is two-phase.
     •   Phase A (R2 Originals): when receiving startImageUrl or a provider result, fetch bytes and BUCKET.put() with a deterministic key (project/{id}/jobs/{jobId}/orig/{n}); store key in D1.
-    •   Phase B (Delivery URL): upload the display asset to IMAGES, persist its public URL in generated_image_url. Never serve originals directly.  ￼
-    4.  Provider routing & prompt refinement. Before each provider call, read knowledge_base tips and rewrite prompts accordingly; log the applied tip set in job metadata. Implement a minimal pHash (or tiny-thumbnail hash) to skip near-duplicates before insert.  ￼
+    •   Phase B (Delivery URL): upload the display asset to IMAGES, persist its public URL in generated_image_url. Never serve originals directly.
+    4.  Provider routing & prompt refinement. Before each provider call, read knowledge_base tips and rewrite prompts accordingly; log the applied tip set in job metadata. Implement a minimal pHash (or tiny-thumbnail hash) to skip near-duplicates before insert.
     5.  Artifacts are plugins. Implement Lookbook fully; others can return structured placeholders but must write manifests to R2 and rows to D1. For public views, stream from R2 and asynchronously enqueue a view log to PICASSO_QUEUE → consumer inserts into artifact_views.
     6.  Security and limits. Enforce X-Api-Key on non-GET, cap body size, validate image MIME, and apply per-IP rate-limits on /jobs (simple DO-scoped token bucket is fine).
     7.  Observability. Emit structured logs { jobId, sessionId, provider, step, ms }. If the Agents SDK exposes traces, annotate each step.do with a span label.
     8.  Idempotency. Accept optional Idempotency-Key on /jobs; skip duplicate processing if a D1 row exists for the same projectId + key.
     9.  Backpressure & progress. For each variant: queued → running(provider,variant) → progress(0..1) → judge(result) → complete. Flush WS messages via the DO; never hold a long-running request without emitting events.
-    10. Wrangler contract is immutable. Use only the bindings and names defined in wrangler.toml/env.ts. Do not add placeholder bindings; if you need a container service, call it out as a new service binding to be added later (commented TODO).  ￼
+    10. Wrangler contract is immutable. Use only the bindings and names defined in wrangler.toml/env.ts. Do not add placeholder bindings; if you need a container service, call it out as a new service binding to be added later (commented TODO).
 
 Concrete “Done” checks (expand your Definition of Done)
     •   POST /api/projects/:id/jobs runs multi-provider with prompt tips applied, writes R2 original + Images delivery, inserts D1 row, and streams WS via the DO actor.
