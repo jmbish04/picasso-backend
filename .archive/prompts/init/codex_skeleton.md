@@ -204,15 +204,15 @@ Important: Include succinct // TODO(Jules): comments in every file that requires
 
 
 Cloudflare-Native Scaffold Requirements (do not alter binding names)
-    •   Agents as the conductor. Create agents/_tools.ts with typed tools that the Orchestrator/Judge/Artifact agents will call (D1 read/write, R2 put/get, Images upload, DO postMessage/fetch). Stub each tool with // TODO(Jules) and an example step.do('tool-name', ...) usage in comments.  ￼
-    •   Durable Object as an Actor. In durable-objects/session.do.ts, document that this DO is a stateful actor managing WS clients for a sessionId. Add a POST /_actor/:sessionId handler stub for agents to send fan-out messages (JSON event payload). No direct state mutation from outside; only via that endpoint.  ￼
-    •   Images vs R2. Add lib/images.ts and lib/r2.ts with comments that originals go to R2 and delivery images go through the IMAGES binding; D1 records must store both original_image_r2_key and generated_image_url. Put a checklist comment on every code path that touches images.  ￼
-    •   Service boundaries for heavy work. Create services/ with a README.md explaining when to move work into a Cloudflare Container behind a service binding (e.g., advanced pHash or video assembly) and how the Worker calls it. Include a // TODO(Jules): add service binding in wrangler.toml when first container is introduced.  ￼
-    •   Prompt-refinement store. In seed/knowledge_base.sql, add provider-tip rows and document in AGENTS.md that agents must read from knowledge_base before routing.  ￼
+    •   Agents as the conductor. Create agents/_tools.ts with typed tools that the Orchestrator/Judge/Artifact agents will call (D1 read/write, R2 put/get, Images upload, DO postMessage/fetch). Stub each tool with // TODO(Jules) and an example step.do('tool-name', ...) usage in comments.
+    •   Durable Object as an Actor. In durable-objects/session.do.ts, document that this DO is a stateful actor managing WS clients for a sessionId. Add a POST /_actor/:sessionId handler stub for agents to send fan-out messages (JSON event payload). No direct state mutation from outside; only via that endpoint.
+    •   Images vs R2. Add lib/images.ts and lib/r2.ts with comments that originals go to R2 and delivery images go through the IMAGES binding; D1 records must store both original_image_r2_key and generated_image_url. Put a checklist comment on every code path that touches images.
+    •   Service boundaries for heavy work. Create services/ with a README.md explaining when to move work into a Cloudflare Container behind a service binding (e.g., advanced pHash or video assembly) and how the Worker calls it. Include a // TODO(Jules): add service binding in wrangler.toml when first container is introduced.
+    •   Prompt-refinement store. In seed/knowledge_base.sql, add provider-tip rows and document in AGENTS.md that agents must read from knowledge_base before routing.
     •   Security hooks. Add lib/security.ts middleware stub enforcing X-Api-Key on non-GET; wire the hook but leave disabled with a // TODO(Jules): enable in prod.
     •   Event typings. In lib/ws-events.ts, define queued|running|progress|judge|fail|complete payloads and a WsEnvelope { sessionId, type, ts, data } so Codex-scaffolded UI clients can rely on types. (WS is delivered by the DO actor.)
     •   Artifact plugin registry. In artifacts/registry.ts, export a typed registry with the list you’re shipping (lookbook, storyboard, moodboard, compare-deck, walkthrough-reel, provider-benchmark, judge-report, prompt-lineage-map, prompt-recipe-card, knowledge-pack, seed-replay-script, r2-archive-manifest, review-board, voting-deck, stakeholder-pdf, slideshow). Each generator file gets a header block with required inputs/outputs and // TODO(Jules) notes for data flow.
-    •   Never change bindings. wrangler.toml and lib/env.ts are the law; do not introduce placeholder IDs; code must import the exact bindings (DB, AI, BUCKET, IMAGES, PICASSO_DO, PICASSO_QUEUE, etc.).  ￼
+    •   Never change bindings. wrangler.toml and lib/env.ts are the law; do not introduce placeholder IDs; code must import the exact bindings (DB, AI, BUCKET, IMAGES, PICASSO_DO, PICASSO_QUEUE, etc.).
 
 
 Do all the above now.
