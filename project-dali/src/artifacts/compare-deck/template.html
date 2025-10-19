@@ -1,0 +1,19 @@
+<!-- TODO(Jules): Implement slide layout comparing providers side-by-side with metrics. -->
+<section class="compare-deck">
+  {{#each slides}}
+  <article>
+    <header>
+      <h2>{{title}}</h2>
+      <p class="meta">{{provider}} · Score {{score}}</p>
+    </header>
+    <div class="image-row">
+      <img src="{{url}}" alt="{{alt}}" />
+    </div>
+    <ul class="bullets">
+      {{#each bullets}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </article>
+  {{/each}}
+</section>

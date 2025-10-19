@@ -1,0 +1,9 @@
+<!-- TODO(Jules): Implement slideshow controls and autoplay configuration hooks. -->
+<div class="slideshow" data-autoplay="{{autoplay}}" data-interval="{{interval}}">
+  {{#each slides}}
+  <figure>
+    <img src="{{url}}" alt="{{alt}}" />
+    <figcaption>{{caption}}</figcaption>
+  </figure>
+  {{/each}}
+</div>

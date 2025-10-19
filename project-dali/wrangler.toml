@@ -1,0 +1,75 @@
+name = "picasso-backend"
+main = "src/index.ts"
+compatibility_date = "2024-10-01"
+compatibility_flags = ["nodejs_compat"]
+observability = { enabled = true }
+
+[vars]
+DEFAULT_MODEL_REASONING = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+DEFAULT_MODEL_VISION = "@cf/meta/llama-3.2-11b-vision-instruct"
+
+[ai]
+binding = "AI"
+
+[images]
+binding = "IMAGES"
+
+[assets]
+binding = "ASSETS"
+directory = "./public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "picasso-backend"
+database_id = "2c5e386d-cc7f-41f1-9964-3a650cc884fe"
+migrations_dir = "migrations"
+
+[[kv_namespaces]]
+binding = "USER_PREFERENCES"
+id = "e4b02f072368413293bf0a082b4fc487"
+
+[[kv_namespaces]]
+binding = "AGENTIC_MEMORIES"
+id = "034f334883bf407f9d0637ec94291f25"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "picasso-backend"
+
+[[durable_objects.bindings]]
+name = "PICASSO_DO"
+class_name = "PicassoDurableObject"
+script_name = "picasso-backend"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["PicassoDurableObject"]
+
+[[workflows]]
+binding = "PICASSO_WORKFLOW"
+name = "picasso-workflow"
+class_name = "PicassoWorkflow"
+
+[[queues.producers]]
+binding = "PICASSO_QUEUE"
+queue = "picasso-backend-queue"
+
+[[queues.consumers]]
+queue = "picasso-backend-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[env.preview]
+[env.preview.vars]
+DEFAULT_MODEL_REASONING = "@cf/meta/llama-3.1-8b-instruct"
+DEFAULT_MODEL_VISION = "@cf/meta/llama-3.2-11b-vision-instruct"
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "picasso-backend-preview"
+database_id = "YOUR_PREVIEW_DB_ID"
+migrations_dir = "migrations"
+
+[[env.preview.r2_buckets]]
+binding = "BUCKET"
+bucket_name = "picasso-backend-preview"

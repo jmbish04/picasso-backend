@@ -1,0 +1,15 @@
+<!-- TODO(Jules): Render review board with comment pins referencing image coordinates. -->
+<section class="review-board">
+  {{#each items}}
+  <article>
+    <img src="{{url}}" alt="{{alt}}" />
+    <ol class="comments">
+      {{#each comments}}
+      <li data-pin="{{pin}}">
+        <strong>{{author}}</strong>: {{text}}
+      </li>
+      {{/each}}
+    </ol>
+  </article>
+  {{/each}}
+</section>

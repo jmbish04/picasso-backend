@@ -1,0 +1,11 @@
+<!-- TODO(Jules): Build storyboard HTML layout with frame grid, captions, and timecodes. -->
+<section class="storyboard">
+  {{#each frames}}
+  <article>
+    <img src="{{url}}" alt="{{alt}}" />
+    <h3>{{title}}</h3>
+    <p>{{caption}}</p>
+    <span class="timecode">{{timecode}}</span>
+  </article>
+  {{/each}}
+</section>
