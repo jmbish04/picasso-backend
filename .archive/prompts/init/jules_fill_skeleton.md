@@ -143,7 +143,7 @@ Definition of Done
 
 
 Implement now.
-```
+Implement now.
 PROMPT 2 - JULES 
 
 You are Jules. Build the backend Worker API for Project Dali. It orchestrates multi-provider image generation/edits, versioning, judge checks, and artifact (lookbook) publishing. Frontend is already defined—implement the contract below.
